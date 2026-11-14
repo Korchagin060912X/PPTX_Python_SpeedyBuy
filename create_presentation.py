@@ -50,7 +50,7 @@ def set_text_outline(run, color, width_pt):
     solidFill = etree.SubElement(ln, qn('a:solidFill'))
     srgbClr = etree.SubElement(solidFill, qn('a:srgbClr'))
     
-    # ИСПРАВЛЕНО: RGBColor это кортеж, обращаемся по индексам
+    # Исправлено: RGBColor это кортеж, обращаемся по индексам
     srgbClr.set('val', f"{color[0]:02X}{color[1]:02X}{color[2]:02X}")
 
 def add_sc_background(slide):
@@ -113,6 +113,7 @@ def add_title(slide, text, left, top, width):
     p.font.size = Pt(40)
     p.font.bold = True
     p.font.color.rgb = TEXT_COLOR
+    p.alignment = PP_ALIGN.CENTER # Заголовки по центру
 
 def set_slide_bg(slide):
     bg = slide.background
@@ -150,13 +151,13 @@ slide2 = prs.slides.add_slide(blank_layout)
 set_slide_bg(slide2)
 add_sc_background(slide2)
 
-add_title(slide2, "Технологический стек", 1, 1.2, 11)
+add_title(slide2, "Технологический стек", 1, 1.2, 11.33)
 tech_text = "Сайт был сделан на библиотеке Flask 3.0.3 и с Django админкой, дизайн на CSS и сайт на Языке программирования Python и html!"
 add_blue_card(slide2, tech_text, 1, 3.0, 11.33, 3.0, font_size=22)
 add_author_signature(slide2)
 
 # ==========================================
-# СЛАЙД 3 (ИЗМЕНЕН: текст по центру и крупнее)
+# СЛАЙД 3
 # ==========================================
 slide3 = prs.slides.add_slide(blank_layout)
 set_slide_bg(slide3)
@@ -175,7 +176,6 @@ for i, img_name in enumerate(["banner1.png", "banner2.png"]):
         tf.paragraphs[0].font.color.rgb = TEXT_COLOR
         tf.paragraphs[0].alignment = PP_ALIGN.CENTER
 
-# Текст по центру правой части, крупный, с обводкой
 txBox = slide3.shapes.add_textbox(Inches(7), Inches(2), Inches(5.5), Inches(3.5))
 tf = txBox.text_frame
 tf.word_wrap = True
@@ -200,13 +200,13 @@ set_text_outline(run2, OUTLINE_COLOR, 1.5)
 add_author_signature(slide3)
 
 # ==========================================
-# СЛАЙД 4 (ИЗМЕНЕН: два чекбокса про запуск)
+# СЛАЙД 4
 # ==========================================
 slide4 = prs.slides.add_slide(blank_layout)
 set_slide_bg(slide4)
 add_sc_background(slide4)
 
-add_title(slide4, "Запуск и настройка сайта", 1, 1.2, 11)
+add_title(slide4, "Запуск и настройка сайта", 1, 1.2, 11.33)
 
 text1 = "Сайт работает на виртуальном окружении Venv. Активация происходит в терминале, после чего необходимо загрузить все библиотеки через файл requirements.txt."
 add_blue_card(slide4, text1, 1, 2.5, 11.33, 1.8, font_size=20)
@@ -217,15 +217,14 @@ add_blue_card(slide4, text2, 1, 4.6, 11.33, 1.8, font_size=20)
 add_author_signature(slide4)
 
 # ==========================================
-# СЛАЙД 5 (ИЗМЕНЕН: картинка справа, чекбокс со списком слева)
+# СЛАЙД 5
 # ==========================================
 slide5 = prs.slides.add_slide(blank_layout)
 set_slide_bg(slide5)
 add_sc_background(slide5)
 
-add_title(slide5, "Функционал SpeedyBuy", 1, 1.2, 11)
+add_title(slide5, "Функционал SpeedyBuy", 1, 1.2, 11.33)
 
-# Сокращенный и структурированный текст для чекбокса
 list_text = (
     "Что реализовано:\n\n"
     "• Каталог товаров с фильтрацией по категориям\n"
@@ -237,7 +236,6 @@ list_text = (
 )
 add_blue_card(slide5, list_text, 1, 2.5, 5.5, 4.0, font_size=18)
 
-# Картинка справа
 if os.path.exists("banner3.png"):
     slide5.shapes.add_picture("banner3.png", Inches(7), Inches(2), width=Inches(5.5))
 else:
@@ -252,13 +250,55 @@ else:
 add_author_signature(slide5)
 
 # ==========================================
-# СЛАЙДЫ 6-10 (Дополнительные, чтобы всего было 10)
+# СЛАЙД 6 (НОВЫЙ: 4 чекбокса)
+# ==========================================
+slide6 = prs.slides.add_slide(blank_layout)
+set_slide_bg(slide6)
+add_sc_background(slide6)
+
+add_title(slide6, "Что есть на сайте:", 1, 0.8, 11.33)
+
+# Сетка 2x2 для чекбоксов
+add_blue_card(slide6, "Есть переход на страницы Главной, FAQ, Маркетплейс, Поддержка и Профиль с корзиной!", 1.0, 2.2, 5.5, 1.8, font_size=18)
+add_blue_card(slide6, "Также имеется Админ Панель, для добавления товаров, изменения товаров, информации заказов, редактирование пользователей и чаты с поддержкой!", 7.0, 2.2, 5.5, 1.8, font_size=18)
+add_blue_card(slide6, "Есть чат с Поддержкой, где пользователь может задать вопрос и получить ответ на него!", 1.0, 4.3, 5.5, 1.8, font_size=18)
+add_blue_card(slide6, "Также есть корзина через которую можно совершить заказ товара(или товаров)!", 7.0, 4.3, 5.5, 1.8, font_size=18)
+
+add_author_signature(slide6)
+
+# ==========================================
+# СЛАЙД 7 (НОВЫЙ: Под конец)
+# ==========================================
+slide7 = prs.slides.add_slide(blank_layout)
+set_slide_bg(slide7)
+add_sc_background(slide7)
+
+add_title(slide7, "Под конец.", 1, 0.8, 11.33)
+
+# Левая часть: Картинка по центру левой половины
+if os.path.exists("banner4.png"):
+    slide7.shapes.add_picture("banner4.png", Inches(1.0), Inches(2.5), width=Inches(5.5))
+else:
+    placeholder = slide7.shapes.add_shape(MSO_SHAPE.RECTANGLE, Inches(1.0), Inches(2.5), Inches(5.5), Inches(3.5))
+    placeholder.fill.solid()
+    placeholder.fill.fore_color.rgb = RGBColor(20, 40, 100)
+    tf = placeholder.text_frame
+    tf.text = "ВСТАВЬТЕ banner4.png"
+    tf.paragraphs[0].font.color.rgb = TEXT_COLOR
+    tf.paragraphs[0].alignment = PP_ALIGN.CENTER
+
+# Правая часть: 2 чекбокса
+add_blue_card(slide7, "В данном проекте в общем получилось около 2500-2700 строчек кода!", 7.0, 2.5, 5.5, 1.5, font_size=20)
+add_blue_card(slide7, "Сайт был создан с участием Нейросетей, в качестве помощника.", 7.0, 4.3, 5.5, 1.5, font_size=20)
+
+add_author_signature(slide7)
+
+# ==========================================
+# СЛАЙДЫ 8-10 (Финальные)
 # ==========================================
 slides_content = [
     ("Главные преимущества", "Покупай быстро и дешево. Моментальная доставка ключей на электронную почту."),
-    ("Удобный интерфейс", "Интуитивно понятный дизайн, адаптивная верстка и простая навигация по каталогу."),
     ("Безопасность", "Надежная защита транзакций и конфиденциальность данных каждого пользователя."),
-    ("Технологии дизайна", "Современный CSS обеспечивает плавные анимации и приятный визуальный опыт."),
     ("Спасибо за внимание!", "Заходи на SpeedyBuy и оцени все преимущества цифрового шопинга!")
 ]
 
@@ -267,7 +307,7 @@ for title, text in slides_content:
     set_slide_bg(slide)
     add_sc_background(slide)
     
-    add_title(slide, title, 1, 1.5, 11)
+    add_title(slide, title, 1, 1.5, 11.33)
     
     txBox = slide.shapes.add_textbox(Inches(1), Inches(3.0), Inches(11.33), Inches(3))
     tf = txBox.text_frame
